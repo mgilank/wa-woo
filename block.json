@@ -1,0 +1,9 @@
+{
+    "apiVersion": 2,
+    "name": "wa/checkout-button",
+    "title": "WhatsApp Checkout Button",
+    "category": "woocommerce",
+    "icon": "whatsapp",
+    "description": "A button to complete checkout via WhatsApp",
+    "editorScript": "file:./build/index.js"
+  }
