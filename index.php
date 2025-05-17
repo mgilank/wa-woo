@@ -13,7 +13,7 @@ function wa_register_block() {
     wp_register_script(
         'whatsapp-checkout-block-editor',
         plugins_url('build/index.js', __FILE__),
-        ['wp-blocks', 'wp-element', 'wp-editor'],
+        ['wp-blocks', 'wp-element', 'wp-components', 'wp-i18n'],
         filemtime(plugin_dir_path(__FILE__) . 'build/index.js')
     );
 
@@ -23,11 +23,24 @@ function wa_register_block() {
         'number' => $wa_number,
     ]);
 
+    // Register the block using the block.json file
     register_block_type(__DIR__, [
         'editor_script' => 'whatsapp-checkout-block-editor',
+        'render_callback' => 'wa_render_checkout_button',
     ]);
 }
 add_action('init', 'wa_register_block');
+
+// Render function for the block on the frontend
+function wa_render_checkout_button($attributes, $content) {
+    $phone = get_option('wa_checkout_number', '');
+    $message = urlencode('Halo, saya ingin checkout dengan keranjang saya.');
+    $link = "https://wa.me/{$phone}?text={$message}";
+    
+    return '<a href="' . esc_url($link) . '" target="_blank" rel="noopener noreferrer" class="wp-block-wa-checkout-button">
+        <button class="wp-element-button">Checkout via WhatsApp</button>
+    </a>';
+}
 
 // Add WooCommerce settings
 add_filter('woocommerce_get_settings_pages', function ($settings) {
