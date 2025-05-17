@@ -2,8 +2,8 @@
     "name": "wa-checkout-button",
     "version": "1.0.0",
     "scripts": {
-        "build": "wp-scripts build",
-        "start": "wp-scripts start"
+        "build": "wp-scripts build src/index.js src/frontend.js",
+        "start": "wp-scripts start src/index.js src/frontend.js"
     },
     "devDependencies": {
         "@wordpress/scripts": "^26.0.0"
