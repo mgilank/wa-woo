@@ -3,7 +3,7 @@
  * Plugin Name: WhatsApp Checkout Block
  * Description: Adds a WhatsApp Checkout button block to the WooCommerce Cart page.
  * Version: 1.0
- * Author: Your Name
+ * Author: Gilang
  */
 
 if (!defined('ABSPATH')) exit;
