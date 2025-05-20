@@ -442,8 +442,22 @@ jQuery(document).ready(function($) {
                 
                 if (response.success) {
                     console.log('Order saved successfully, ID: ' + response.data.order_id);
-                    // Continue with WhatsApp redirect only if validation passed
+                    // Open WhatsApp in a new tab
                     window.open(waLink, '_blank');
+                    
+                    // Redirect to the order-received page
+                    if (response.data.order_id) {
+                        var orderReceivedUrl = '/checkout/order-received/' + response.data.order_id + '/?key=' + (response.data.order_key || '');
+                        // Check if we have a custom thank you page URL in the response
+                        if (response.data.redirect_url) {
+                            orderReceivedUrl = response.data.redirect_url;
+                        }
+                        console.log('Redirecting to order received page:', orderReceivedUrl);
+                        // Use a small timeout to ensure WhatsApp opens first
+                        setTimeout(function() {
+                            window.location.href = orderReceivedUrl;
+                        }, 500);
+                    }
                 } else {
                     console.error('Failed to save order:', response.data);
                     alert('Error: ' + response.data);

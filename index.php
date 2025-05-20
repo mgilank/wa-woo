@@ -8,23 +8,6 @@
 
 if (!defined('ABSPATH')) exit;
 
-// Register custom post type for WhatsApp orders
-function wa_register_order_post_type() {
-    register_post_type('wa_order', [
-        'labels' => [
-            'name' => 'WhatsApp Orders',
-            'singular_name' => 'WhatsApp Order',
-        ],
-        'public' => true,
-        'has_archive' => true,
-        'menu_icon' => 'dashicons-whatsapp',
-        'supports' => ['title', 'editor', 'custom-fields'],
-        'menu_position' => 30,
-        'show_in_rest' => true,
-    ]);
-}
-add_action('init', 'wa_register_order_post_type');
-
 function wa_register_block() {
     // Enqueue block editor assets
     wp_register_script(
@@ -333,10 +316,12 @@ function wa_render_checkout_button($attributes, $content) {
     $link = "https://wa.me/{$phone}?text={$message}";
     
     // Add data attributes for JavaScript
-    return '<button type="button" class="wp-block-wa-checkout-button" data-wa-message="' . htmlspecialchars($message) . '" data-wa-link="' . htmlspecialchars($link) . '" data-wa-save-order="true">
+    return '<button style="padding:1em; width:250px; background:#0b9872; border:0px; border-radius:5px; color:#fff;" type="button" class="wp-block-wa-checkout-button" data-wa-message="' . htmlspecialchars($message) . '" data-wa-link="' . htmlspecialchars($link) . '" data-wa-save-order="true">
         Checkout via WhatsApp
     </button>';
 }
+
+
 
 // Add WooCommerce settings
 add_filter('woocommerce_get_settings_pages', function ($settings) {
@@ -345,3 +330,4 @@ add_filter('woocommerce_get_settings_pages', function ($settings) {
     return $settings;
 });
 ?>
+
